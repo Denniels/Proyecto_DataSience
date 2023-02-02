@@ -37,6 +37,12 @@ def selectViewTest(conn):
     return pd.read_sql(query, conn)
 
 
+def selectViewComplete(conn):
+    query = f'SELECT * FROM public.info_automotora_listings'    
+
+    return pd.read_sql(query, conn)
+
+
 def remove_outlier(df_in, col_name, f_rango):
     '''
     definición: Método de rango intercuartílico para eliminar valores atípicos
