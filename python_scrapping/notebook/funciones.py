@@ -194,10 +194,3 @@ def plot_importance(fit_model, feat_names):
     plt.title("Feature importance")
     plt.barh(range(len(feat_names)), tmp_importance[sort_importance])
     plt.yticks(range(len(feat_names)), names, rotation=0)    
-
-
-
-Uno de los puntos a favor de los modelos de árboles de decisión es que nos permite medir la importancia 
-relativa de cada atributo en nuestro vector objetivo. 
-Para obtener los puntajes de importancia relativa de un modelo, pueden acceder a ellos mediante. 
-**feature_importances_** en el objeto instanciado, **posterior al ﬁt.** De manera alternativa,
