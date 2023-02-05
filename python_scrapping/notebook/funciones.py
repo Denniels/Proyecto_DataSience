@@ -8,6 +8,7 @@ import scipy.stats as stats
 from matplotlib import pyplot as plt
 import seaborn as sns
 from sklearn.metrics import mean_squared_error, median_absolute_error, r2_score, confusion_matrix
+import numpy as np
 
 def conexion_sqlalchemy():
     #local
@@ -76,10 +77,45 @@ def boxplot_graph(X, Y, Title):
     plt.xticks(rotation=90) 
     plt.show()
 
-def report_metrics(model, x_test, y_test):
+def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo):
+    dfTempTrain = dataframeTrain.copy()
+    dfTempTest = dataframeTest.copy()
     
-        preds = model.predict(x_test)
-        print(f'''
-        Test R2: {r2_score(y_test, preds)}
-        Test MSE: {mean_squared_error(y_test, preds)}
-        Test Median Absolute Error: {median_absolute_error(y_test, preds)}''')
+    X_train_model = dfTempTrain.drop(columns = [vector_objetivo])
+    y_train_model = dfTempTrain[vector_objetivo]
+
+    X_test_model = dfTempTest.drop(columns = [vector_objetivo])
+    y_test_model = dfTempTest[vector_objetivo]
+    
+    clf_model = model.fit(X_train_model, y_train_model)
+    
+    preds = clf_model.predict(X_test_model)
+        
+    print(f'''{titulo}
+    RMSE: {np.sqrt(mean_squared_error(y_test_model, preds))}
+    MAE: {median_absolute_error(y_test_model, preds)}
+    R2 Score: {r2_score(y_test_model, preds)}''')
+    
+
+def graph(dataframe):
+    dfTemp = dataframe.copy()
+    rows = 1
+    cols = 1
+    
+    if dfTemp.shape[1] != 1:
+        rows = 2
+        cols = dfTemp.shape[1] // rows
+
+    for index, (colnames, serie) in enumerate(dfTemp.iteritems()):
+        plt.subplot(rows, cols, index + 1)
+        if serie.dtype == 'object':
+            sns.countplot(serie.dropna())
+            plt.axhline(serie.value_counts().mean(), color='forestgreen',linestyle='--')
+            plt.title(colnames)
+        else:
+            sns.distplot(serie.dropna(), color='slategrey')
+            plt.axvline(serie.mean(), color='forestgreen', linestyle='--')
+            plt.title(colnames)
+
+    plt.xticks(rotation=90) 
+    plt.tight_layout()
