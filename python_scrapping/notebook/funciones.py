@@ -11,6 +11,11 @@ from sklearn.metrics import mean_squared_error, median_absolute_error, r2_score,
 import numpy as np
 
 def conexion_sqlalchemy():
+    """
+     definición: conexion con bd postgres
+          
+     retorno: retorna conexion a bd    
+    """
     #local
     # user = "postgres"
     # passw = "postgre"
@@ -29,24 +34,46 @@ def conexion_sqlalchemy():
 
         
 def selectViewTrain(conn):
+    """
+     definición: funcion que realiza consulta select a vista desde postgres
+     
+     conn: conexion base de datos postgres
+     
+     retorno: retorna la consulta select de los datos de train convertidos en dataframe
+    """
     query = f'SELECT * FROM public.info_automotora_train'    
 
     return pd.read_sql(query, conn)
 
 def selectViewTest(conn):
+    """
+    definición: funcion que realiza consulta select a vista desde postgres
+     
+    conn: conexion base de datos postgres
+     
+    retorno: retorna la consulta select de los datos de test convertidos en dataframe
+    """
+    
     query = f'SELECT * FROM public.info_automotora_test'    
 
     return pd.read_sql(query, conn)
 
 
 def selectViewComplete(conn):
+    """
+    definición: funcion que realiza consulta select a vista desde postgres
+     
+    conn: conexion base de datos postgres
+     
+    retorno: retorna la consulta select de los datos completos
+    """
     query = f'SELECT * FROM public.info_automotora_listings'    
 
     return pd.read_sql(query, conn)
 
 
 def remove_outlier(df_in, col_name, f_rango):
-    '''
+    """
     definición: Método de rango intercuartílico para eliminar valores atípicos
                 El rango intercuartil (IQR) es la diferencia entre el percentil 75 (Q3) y el percentil 25 (Q1) 
                 en un conjunto de datos. Mide la dispersión del 50% medio de los valores. 
@@ -59,7 +86,7 @@ def remove_outlier(df_in, col_name, f_rango):
                 distancia de la mediana de los datos.
                 
     retorno: dataframe sin outliers            
-    '''
+    """
     q1 = df_in[col_name].quantile(0.25)
     q3 = df_in[col_name].quantile(0.75)
     #iqr = q3-q1 #Interquartile range
@@ -70,6 +97,16 @@ def remove_outlier(df_in, col_name, f_rango):
     return df_out
 
 def boxplot_graph(X, Y, Title):
+    """
+    definición: funcion que realiza muestra de graficos boxplot para visualizar los OUTLIERS del dateframe
+     
+    X: dataframe sin vetor objetivo
+    Y: vector objetivo 
+    Title: titulo de grafico
+     
+    retorno: retorna print de graficos boxplot
+    """
+    
     boxplot = sns.boxplot(x=X, y=Y)
     boxplot.axes.set_title(Title, fontsize=16)
     boxplot.set_xlabel("Make", fontsize=14)
@@ -78,6 +115,18 @@ def boxplot_graph(X, Y, Title):
     plt.show()
 
 def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo):
+    """
+    definición: funcion que realiza print de metricas segun modelo envaido como parametro
+     
+    model: Modelo regresion 
+    dataframeTrain: muestra de train
+    dataframeTest: muestra de test
+    vector_objetivo: columna a evaluar como vector objetivo
+    titulo: titulo de print
+    
+    retorno: retorna print de metricas
+    """
+    
     dfTempTrain = dataframeTrain.copy()
     dfTempTest = dataframeTest.copy()
     
@@ -98,6 +147,14 @@ def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo
     
 
 def graph(dataframe):
+    """
+    definición: funcion que realiza graficos de un dataset enviado como paramtero
+         
+    dataframe: set de datos a graficar
+    
+    retorno: retorna print de series del dataframe    
+    """
+    
     dfTemp = dataframe.copy()
     rows = 1
     cols = 1
@@ -122,11 +179,13 @@ def graph(dataframe):
 
     
 def plot_importance(fit_model, feat_names):
-    """TODO: Docstring for plot_importance.
+    """
+    definición: funcion que permite evaluar la importancia relativa de cada atributo en nuestro vector objetivo
 
-    :fit_model: TODO
-    :: TODO
-    :returns: TODO
+    fit_model: modelo fiteado
+    fest_names: atribbutos a evaluar importancia
+        
+    returns: print graficos de importancia relativa
 
     """
     tmp_importance = fit_model.feature_importances_
@@ -135,3 +194,10 @@ def plot_importance(fit_model, feat_names):
     plt.title("Feature importance")
     plt.barh(range(len(feat_names)), tmp_importance[sort_importance])
     plt.yticks(range(len(feat_names)), names, rotation=0)    
+
+
+
+Uno de los puntos a favor de los modelos de árboles de decisión es que nos permite medir la importancia 
+relativa de cada atributo en nuestro vector objetivo. 
+Para obtener los puntajes de importancia relativa de un modelo, pueden acceder a ellos mediante. 
+**feature_importances_** en el objeto instanciado, **posterior al ﬁt.** De manera alternativa,
