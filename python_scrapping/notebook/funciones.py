@@ -103,7 +103,7 @@ def graph(dataframe):
     cols = 1
     
     if dfTemp.shape[1] != 1:
-        rows = 2
+        rows = 3
         cols = dfTemp.shape[1] // rows
 
     for index, (colnames, serie) in enumerate(dfTemp.iteritems()):
@@ -119,3 +119,19 @@ def graph(dataframe):
 
     plt.xticks(rotation=90) 
     plt.tight_layout()
+
+    
+def plot_importance(fit_model, feat_names):
+    """TODO: Docstring for plot_importance.
+
+    :fit_model: TODO
+    :: TODO
+    :returns: TODO
+
+    """
+    tmp_importance = fit_model.feature_importances_
+    sort_importance = np.argsort(tmp_importance)[::-1]
+    names = [feat_names[i] for i in sort_importance]
+    plt.title("Feature importance")
+    plt.barh(range(len(feat_names)), tmp_importance[sort_importance])
+    plt.yticks(range(len(feat_names)), names, rotation=0)    
