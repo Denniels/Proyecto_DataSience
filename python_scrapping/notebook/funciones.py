@@ -7,6 +7,7 @@ import pandas as pd
 import scipy.stats as stats
 from matplotlib import pyplot as plt
 import seaborn as sns
+from sklearn.metrics import mean_squared_error, median_absolute_error, r2_score, confusion_matrix
 
 def conexion_sqlalchemy():
     #local
@@ -75,4 +76,10 @@ def boxplot_graph(X, Y, Title):
     plt.xticks(rotation=90) 
     plt.show()
 
-                
+def report_metrics(model, x_test, y_test):
+    
+        preds = model.predict(x_test)
+        print(f'''
+        Test R2: {r2_score(y_test, preds)}
+        Test MSE: {mean_squared_error(y_test, preds)}
+        Test Median Absolute Error: {median_absolute_error(y_test, preds)}''')
