@@ -114,7 +114,7 @@ def boxplot_graph(X, Y, Title):
     plt.xticks(rotation=90) 
     plt.show()
 
-def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo):
+def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo, key, list_model_result, df_Predict):
     """
     definición: funcion que realiza print de metricas segun modelo envaido como parametro
      
@@ -123,6 +123,7 @@ def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo
     dataframeTest: muestra de test
     vector_objetivo: columna a evaluar como vector objetivo
     titulo: titulo de print
+    list_model_result: diccionario que guardara lista de modelos
     
     retorno: retorna print de metricas
     """
@@ -138,12 +139,23 @@ def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo
     
     clf_model = model.fit(X_train_model, y_train_model)
     
+    list_model_result[key] = clf_model
+    
     preds = clf_model.predict(X_test_model)
+        
+    d = {'Modelo': key, 
+         'RMSE': np.sqrt(mean_squared_error(y_test_model, preds)), 
+         'MAE':median_absolute_error(y_test_model, preds),
+         'R2 Score': r2_score(y_test_model, preds)}
+    
+    df_Predict = df_Predict.append(d, ignore_index=True)
         
     print(f'''{titulo}
     RMSE: {np.sqrt(mean_squared_error(y_test_model, preds))}
     MAE: {median_absolute_error(y_test_model, preds)}
     R2 Score: {r2_score(y_test_model, preds)}''')
+    
+    return list_model_result, df_Predict
     
 
 def graph(dataframe):
