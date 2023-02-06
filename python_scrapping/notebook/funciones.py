@@ -142,18 +142,24 @@ def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo
     list_model_result[key] = clf_model
     
     preds = clf_model.predict(X_test_model)
-        
+    
+    Rmse = np.sqrt(mean_squared_error(y_test_model, preds))
+    Mae = median_absolute_error(y_test_model, preds)
+    R2_Score = r2_score(y_test_model, preds)
+    filas = dfTempTrain.shape[0]
+    
     d = {'Modelo': key, 
-         'RMSE': np.sqrt(mean_squared_error(y_test_model, preds)), 
-         'MAE':median_absolute_error(y_test_model, preds),
-         'R2 Score': r2_score(y_test_model, preds)}
+         'RMSE': Rmse, 
+         'MAE': Mae,
+         'R2 Score': R2_Score,
+         'Cantidad Filas': filas}
     
     df_Predict = df_Predict.append(d, ignore_index=True)
         
     print(f'''{titulo}
-    RMSE: {np.sqrt(mean_squared_error(y_test_model, preds))}
-    MAE: {median_absolute_error(y_test_model, preds)}
-    R2 Score: {r2_score(y_test_model, preds)}''')
+    RMSE: {Rmse}
+    MAE: {Mae}
+    R2 Score: {R2_Score}''')
     
     return list_model_result, df_Predict
     
