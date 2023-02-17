@@ -53,7 +53,11 @@ conn = conexion_sqlalchemy()
 #         })
 #     insertTable(conn, record)
 
+<<<<<<< HEAD
 dfRegistroUnico = readCsv('./Bd/archivos_csv/registro_unico_vin.csv', ';')
+=======
+dfRegistroUnico = readCsv('./Bd/registro_unico_vin.csv', ';')
+>>>>>>> parent of 674f25f3 (modelo ejecutado en streamlit)
 for i, value in dfRegistroUnico.iterrows():
     record = registro_unico_vin(**{
         'Clave': value[0],
