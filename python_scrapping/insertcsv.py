@@ -2,7 +2,6 @@ from readCsv import readCsv
 from funciones import insertTable, conexion_sqlalchemy
 from models import true_car_listings, true_cars_test, true_cars_train, registro_unico_vin
 
-    
 # conexion bd
 conn = conexion_sqlalchemy()
 
@@ -54,14 +53,13 @@ conn = conexion_sqlalchemy()
 #         })
 #     insertTable(conn, record)
 
-dfRegistroUnico = readCsv(r'python_scrapping/Bd/registro_unico_vin.csv', ';')
-dfRegistroUnico
-# for i, value in dfRegistroUnico.iterrows():
-#     record = registro_unico_vin(**{
-#         'Clave': value[0],
-#         'Make': value[1],
-#         'Model': value[2],
-#         'Vin': value[3],
-#         'InformacionActualizada': False
-#     })
-#     insertTable(conn, record)
+dfRegistroUnico = readCsv('./Bd/registro_unico_vin.csv', ';')
+for i, value in dfRegistroUnico.iterrows():
+    record = registro_unico_vin(**{
+        'Clave': value[0],
+        'Make': value[1],
+        'Model': value[2],
+        'Vin': value[3],
+        'InformacionActualizada': False
+    })
+    insertTable(conn, record)
