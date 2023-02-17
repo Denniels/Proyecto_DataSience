@@ -1,8 +1,6 @@
 import streamlit as st
 import pickle
 import pandas as pd
-from sklearn.ensemble import GradientBoostingRegressor, AdaBoostRegressor, RandomForestRegressor, BaggingRegressor
-from typing import List
 from models_bd import make, model, state, city, fuel_type
 from bd_data import selectTable, conexion_sqlalchemy
 
@@ -23,23 +21,23 @@ from bd_data import selectTable, conexion_sqlalchemy
 
 def main():
     mdl_generalista = pickle.load(
-        open('notebook/streamlit/modelos/RandomForestRegressor_generalista.sav', 'rb+'))
+        open('notebook/streamlit/modelos_serializados/RandomForestRegressor_generalista.sav', 'rb+'))
     mdl_premium1 = pickle.load(
-        open('notebook/streamlit/modelos/RandomForestRegressor_premium_1.sav', 'rb+'))
+        open('notebook/streamlit/modelos_serializados/RandomForestRegressor_premium_1.sav', 'rb+'))
     mdl_premium2 = pickle.load(
-        open('notebook/streamlit/modelos/RandomForestRegressor_premium_2.sav', 'rb+'))
+        open('notebook/streamlit/modelos_serializados/RandomForestRegressor_premium_2.sav', 'rb+'))
     mdl_premium3 = pickle.load(
-        open('notebook/streamlit/modelos/BaggingRegressor_premium_3.sav', 'rb+'))
+        open('notebook/streamlit/modelos_serializados/BaggingRegressor_premium_3.sav', 'rb+'))
     mdl_premium4 = pickle.load(
-        open('notebook/streamlit/modelos/RandomForestRegressor_premium_4.sav', 'rb+'))
+        open('notebook/streamlit/modelos_serializados/RandomForestRegressor_premium_4.sav', 'rb+'))
     mdl_premium5 = pickle.load(
-        open('notebook/streamlit/modelos/BaggingRegressor_premium_5.sav', 'rb+'))
+        open('notebook/streamlit/modelos_serializados/BaggingRegressor_premium_5.sav', 'rb+'))
     mdl_premium6 = pickle.load(
-        open('notebook/streamlit/modelos/BaggingRegressor_premium_6.sav', 'rb+'))
+        open('notebook/streamlit/modelos_serializados/BaggingRegressor_premium_6.sav', 'rb+'))
     mdl_premium7 = pickle.load(open(
-        'notebook/streamlit/modelos/GradientBoostingRegressor_premium_7.sav', 'rb+'))
+        'notebook/streamlit/modelos_serializados/GradientBoostingRegressor_premium_7.sav', 'rb+'))
     mdl_premium8 = pickle.load(
-        open('notebook/streamlit/modelos/DecisionTreeRegressor_premium_8.sav', 'rb+'))
+        open('notebook/streamlit/modelos_serializados/DecisionTreeRegressor_premium_8.sav', 'rb+'))
 
     # titulo
     st.title('Modelamiento Automotora Anaconda')

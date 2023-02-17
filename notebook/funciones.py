@@ -114,7 +114,8 @@ def boxplot_graph(X, Y, Title):
     plt.xticks(rotation=90) 
     plt.show()
 
-def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo, key, list_model_result, df_Predict):
+def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo, modelo, segmento, 
+                   key, list_model_result, df_Predict):
     """
     definición: funcion que realiza print de metricas segun modelo envaido como parametro
      
@@ -148,7 +149,14 @@ def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo
     R2_Score = r2_score(y_test_model, preds)
     filas = dfTempTrain.shape[0]
     
-    d = {'Modelo': key, 
+    # d = {'Modelo': key,
+    #      'RMSE': Rmse,
+    #      'MAE': Mae,
+    #      'R2 Score': R2_Score,
+    #      'Cantidad Filas': filas}
+    
+    d = {'Segmento': segmento,
+         'Modelo': modelo, 
          'RMSE': Rmse, 
          'MAE': Mae,
          'R2 Score': R2_Score,
@@ -175,9 +183,9 @@ def graph(dataframe, rows = 1, cols = 1):
     
     dfTemp = dataframe.copy()
 
-    if dfTemp.shape[1] != 1:
-        rows = 3
-        cols = dfTemp.shape[1] // rows
+    # if dfTemp.shape[1] != 1:
+    #     rows = 3
+    #     cols = dfTemp.shape[1] // rows
 
     for index, (colnames, serie) in enumerate(dfTemp.iteritems()):
         plt.subplot(rows, cols, index + 1)
