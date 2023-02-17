@@ -164,7 +164,7 @@ def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo
     return list_model_result, df_Predict
     
 
-def graph(dataframe):
+def graph(dataframe, rows = 1, cols = 1):
     """
     definición: funcion que realiza graficos de un dataset enviado como paramtero
          
@@ -174,9 +174,7 @@ def graph(dataframe):
     """
     
     dfTemp = dataframe.copy()
-    rows = 1
-    cols = 1
-    
+
     if dfTemp.shape[1] != 1:
         rows = 3
         cols = dfTemp.shape[1] // rows
