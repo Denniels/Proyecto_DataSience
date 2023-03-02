@@ -37,3 +37,10 @@ def selectTable(conn, table):
     result = db.select(table)
 
     return list(session.scalars(result))
+
+def selectTableWhere(conn, table, filter):
+    session = Session(conn)
+
+    result = db.select(table).where(table.Make == filter)
+
+    return list(session.scalars(result))

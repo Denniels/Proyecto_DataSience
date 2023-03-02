@@ -2,28 +2,33 @@ from sqlmodel import Field, SQLModel
 
 class make(SQLModel, table=True):
     Id: int = Field(default=None, primary_key=True)
-    Make_Car: str
+    Make_Car: str    
     __table_args__ = {'extend_existing': True}
     
     def __init__(self, Make_Car: str = '') -> None:        
         self.Make_Car = Make_Car
         
         
+        
 class model(SQLModel, table=True):
     Id: int = Field(default=None, primary_key=True)
     Model_Car: str
+    Make: str
     __table_args__ = {'extend_existing': True}
     
-    def __init__(self, Model_Car: str = '') -> None:        
-        self.Model_Car = Model_Car  
+    def __init__(self, Model_Car: str = '', Make: str = '') -> None:        
+        self.Model_Car = Model_Car
+        self.Make = Make
         
 class state(SQLModel, table=True):
     Id: int = Field(default=None, primary_key=True)
     State_Car: str
+    Name: str
     __table_args__ = {'extend_existing': True}
     
-    def __init__(self, State_Car: str = '') -> None:        
+    def __init__(self, State_Car: str = '', Name: str = '') -> None:        
         self.State_Car = State_Car
+        self.Name = Name 
 
 class city(SQLModel, table=True):
     Id: int = Field(default=None, primary_key=True)
