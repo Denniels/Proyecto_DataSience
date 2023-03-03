@@ -36,7 +36,6 @@ def cargarDataMarca():
 
 # obtener listado de modelos desde bd
 def cargarDataModelos(select_make):
-    print('cargar modelos por marca')
     list_modelo = []
 
     conn = conexion_sqlalchemy()
@@ -94,9 +93,6 @@ def format_func_1(datalist, valueSelected):
 
 def format_func_2(datalist, valueSelected):
     lst = list(datalist)
-    # print(len(lst))
-    # if len(lst) == 0:
-    #     return
     fil = [x for x in lst if x.Model_Car == valueSelected]
     return fil[0].Id
 
@@ -152,7 +148,6 @@ def main():
         open('notebook/streamlit/modelos_serializados/RandomForestRegressor_premium_2.sav', 'rb+'))
         st.session_state.mdl_premium2 = mdl_premium2
     else:
-        print('else')
         mdl_premium2 = st.session_state.mdl_premium2
                 
     if st.session_state.mdl_premium3 == None:  
@@ -200,7 +195,7 @@ def main():
         
         
     # titulo
-    st.title('Modelamiento Automotora Anaconda')
+    st.title('Anaconda Predict')
     st.subheader('Ingreso de Datos')
 
     # titulo de sidebar
@@ -244,7 +239,8 @@ def main():
 
         text_input_year = st.number_input(
             label="Año Vehiculo 👇",
-            min_value=1990
+            min_value=1997,
+            max_value=2018
         )
 
         text_input_mileage = st.number_input(
@@ -299,42 +295,45 @@ def main():
     df = user_input_parameters()
 
     # escoger el modelo preferido
-    option = ['Generalista', 'Premium 1', 'Premium 2', 'Premium 3',
-              'Premium 4', 'Premium 5', 'Premium 6', 'Premium 7', 'Premium 8']
+    option = ['rango desde 0 a 25.000', 'rango desde 25.001 a 35.000', 
+              'rango desde 35.0001 a 45.000', 'rango desde 45.001 a 55.000',
+              'rango desde 55.001 a 65.000', 'rango desde 65.001 a 75.000', 
+              'rango desde 75.001 a 85.000', 'rango desde 85.001 a 95.000', 
+              'mayores a 95.001']
     model_selected = st.sidebar.selectbox(
-        '¿ Selecciona clasificador ?', option)
+        '¿ Selecciona segmento ?', option)
 
-    st.subheader(f'clasificador seleccionado: {model_selected}')
+    st.subheader(f'segmento seleccionado: {model_selected} usd')
     # st.subheader(df)
 
     if st.button('Valorizar'):
-        if model_selected == 'Generalista':
+        if model_selected == 'rango desde 0 a 25.000':
             result = mdl_generalista.predict(df)
-            st.success(f'valor compra: {result}')
-        if model_selected == 'Premium 1':
+            st.success('predicción valor de compra: {:.2f} usd'.format(result[0]))
+        if model_selected == 'rango desde 25.001 a 35.000':
             result = mdl_premium1.predict(df)
-            st.success(f'valor compra: {result}')
-        if model_selected == 'Premium 2':
+            st.success('predicción valor de compra: {:.2f} usd'.format(result[0]))
+        if model_selected == 'rango desde 35.0001 a 45.000':
             result = mdl_premium2.predict(df)
-            st.success(f'valor compra: {result}')
-        if model_selected == 'Premium 3':
+            st.success('predicción valor de compra: {:.2f} usd'.format(result[0]))
+        if model_selected == 'rango desde 45.001 a 55.000':
             result = mdl_premium3.predict(df)
-            st.success(f'valor compra: {result}')
-        if model_selected == 'Premium 4':
+            st.success('predicción valor de compra: {:.2f} usd'.format(result[0]))
+        if model_selected == 'rango desde 55.001 a 65.000':
             result = mdl_premium4.predict(df)
-            st.success(f'valor compra: {result}')
-        if model_selected == 'Premium 5':
+            st.success('predicción valor de compra: {:.2f} usd'.format(result[0]))
+        if model_selected == 'rango desde 65.001 a 75.000':
             result = mdl_premium5.predict(df)
-            st.success(f'valor compra: {result}')
-        if model_selected == 'Premium 6':
+            st.success('predicción valor de compra: {:.2f} usd'.format(result[0]))
+        if model_selected == 'rango desde 75.001 a 85.000':
             result = mdl_premium6.predict(df)
-            st.success(f'valor compra: {result}')
-        if model_selected == 'Premium 7':
+            st.success('predicción valor de compra: {:.2f} usd'.format(result[0]))
+        if model_selected == 'rango desde 85.001 a 95.000':
             result = mdl_premium7.predict(df)
-            st.success(f'valor compra: {result}')
-        if model_selected == 'Premium 8':
+            st.success('predicción valor de compra: {:.2f} usd'.format(result[0]))
+        if model_selected == 'mayores a 95.001':
             result = mdl_premium8.predict(df)
-            st.success(f'valor compra: {result}')
+            st.success('predicción valor de compra: {:.2f} usd'.format(result[0]))
 
 
 if __name__ == '__main__':
