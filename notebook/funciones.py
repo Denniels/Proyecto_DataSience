@@ -148,18 +148,20 @@ def report_metrics(model, dataframeTrain, dataframeTest, vector_objetivo, titulo
     Mae = median_absolute_error(y_test_model, preds)
     R2_Score = r2_score(y_test_model, preds)
     filas = dfTempTrain.shape[0]
-    
-    # d = {'Modelo': key,
-    #      'RMSE': Rmse,
-    #      'MAE': Mae,
-    #      'R2 Score': R2_Score,
-    #      'Cantidad Filas': filas}
+    min_price = y_train_model.min()
+    max_price = y_train_model.max()
+    mean_price = y_train_model.mean()
     
     d = {'Segmento': segmento,
          'Modelo': modelo, 
          'RMSE': Rmse, 
          'MAE': Mae,
          'R2 Score': R2_Score,
+         'Min Price': min_price,
+         'Max Price': max_price,
+         'Mean Price': mean_price,
+         'Porcentaje del error': Mae / mean_price,
+         'Promedio prediccion': np.mean(preds),
          'Cantidad Filas': filas}
     
     df_Predict = df_Predict.append(d, ignore_index=True)
