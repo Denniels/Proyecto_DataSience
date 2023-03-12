@@ -4,7 +4,6 @@ from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
-
 # def createBd():
 #     # join the inputs into a complete database url.
 #     url = f"mysql+pymysql://{db_user}:{db_pass}@{db_addr}/{db_name}"

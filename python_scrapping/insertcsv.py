@@ -7,7 +7,7 @@ conn = conexion_sqlalchemy()
 
 # leer csv base y guardar en bd local
 
-# dfCars_true = readCsv('./Bd/true_car_listings.csv', ',')
+# dfCars_true = readCsv('./Bd/archivos_csv/true_car_listings.csv', ',')
 
 # for i, value in dfCars_true.iterrows():
 #     record = true_car_listings(**{
@@ -23,7 +23,7 @@ conn = conexion_sqlalchemy()
 #         })
 #     insertTable(conn, record)
 
-#dfCars_test = readCsv('./Bd/true_cars_test.csv', ';')
+#dfCars_test = readCsv('./Bd/archivos_csv/true_cars_test.csv', ';')
 # for i, value in dfCars_test.iterrows():
 #      record = true_cars_test(**{
 #              'Price': value[0],
@@ -38,7 +38,7 @@ conn = conexion_sqlalchemy()
 #          })
 #      insertTable(conn, record)
 
-# dfCars_train = readCsv('./Bd/true_cars_train.csv', ';')
+# dfCars_train = readCsv('./Bd/archivos_csv/true_cars_train.csv', ';')
 # for i, value in dfCars_train.iterrows():
 #     record = true_cars_train(**{
 #             'Price': value[0],
@@ -53,7 +53,7 @@ conn = conexion_sqlalchemy()
 #         })
 #     insertTable(conn, record)
 
-dfRegistroUnico = readCsv('./Bd/registro_unico_vin.csv', ';')
+dfRegistroUnico = readCsv('./Bd/archivos_csv/registro_unico_vin.csv', ';')
 for i, value in dfRegistroUnico.iterrows():
     record = registro_unico_vin(**{
         'Clave': value[0],

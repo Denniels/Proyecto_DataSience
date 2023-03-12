@@ -4,7 +4,6 @@ import re
 urlScrapping = 'https://driving-tests.org/vin-decoder'
 #urlScrapping = 'https://vincheck.info'
 
-
 #https://api.carmd.com/
 #http://api.carmd.com/v3.0/decode?vin=1GNALDEK9FZ108495
 AuthorizationKey = 'Basic OTEzNjczMmMtMTFhNi00NDBhLTllMTEtY2E1Mzk1MGIxZjZj'
